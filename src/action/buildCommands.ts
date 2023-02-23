@@ -1,5 +1,4 @@
 import { SlashCommandBuilder, ContextMenuCommandBuilder, ApplicationCommandType, PermissionFlagsBits } from 'discord.js'
-import { registerBlackJackCommands } from './blackjack/registerCommands'
 
 export default [
   /*
@@ -13,7 +12,6 @@ export default [
     Mod-Commands
     */
   new SlashCommandBuilder().setName('history')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .setDescription('Sieht die Historie eines Users ein')
     .addUserOption(
       opt => opt.setName('target')
@@ -42,7 +40,6 @@ export default [
         .setRequired(true)
     ),
   new SlashCommandBuilder().setName('rename')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .setDescription('Ändert deinen Benutzernamen in einen random Namen auf dem Server')
     .addUserOption(
       opt => opt.setName('target')
@@ -148,13 +145,6 @@ export default [
   new SlashCommandBuilder().setName('meme')
     .setDescription('Random memes von Reddit.'),
   /*
-    Toggle-Role-Commands
-    */
-  new SlashCommandBuilder().setName('role')
-    .setDescription('Dir bestimmte Rollen geben / entfernen'),
-  new SlashCommandBuilder().setName('role-force-button')
-    .setDescription('Einen Button zum verteilen von Rollen anzeigen'),
-  /*
     Voting
     */
   new SlashCommandBuilder().setName('voting')
@@ -173,18 +163,6 @@ export default [
       option.setName('question')
         .setDescription('Die Frage')
         .setRequired(true)),
-  /*
-    Ticket-System
-    */
-  new SlashCommandBuilder().setName('ticket-create')
-    .setDescription('Erstellt einen Channel, wo du mit dem Support-Team kommunizieren kannst'),
-  new SlashCommandBuilder().setName('ticket-add')
-    .setDescription('Ein Mitglied in den Channel einladen')
-    .addUserOption(option => option.setName('target')
-      .setDescription('Der Nutzer, der hinzugefügt werden soll')
-      .setRequired(true)),
-  new SlashCommandBuilder().setName('ticket-close')
-    .setDescription('Das Ticket schließen'),
   /*
       Giveaway
   */
@@ -208,9 +186,5 @@ export default [
       o => o.setName('messageid')
         .setDescription('Die ID der Nachricht vom Bot in dem der Giveaway verkündet wurde')
         .setRequired(true)
-    ),
-  /*
-      Blackjack
-  */
-  registerBlackJackCommands()
+    )
 ]

@@ -9,7 +9,6 @@ import {
 import { LogManager } from '../logger/logger'
 import { codeblocks, metafrage, about, ping } from '../action/infoMessages'
 import { createRoleInterface } from '../action/roles_buttons_create'
-import { toggleRoles } from '../action/toggleRole'
 import startUserReport from '../action/userReport'
 
 import continueReport from '../action/continueReport'
@@ -17,7 +16,6 @@ import finishReport from '../action/finishReport'
 import messageReport from '../action/messageReport'
 import voting from '../action/voting'
 import { fourthPage, helpIntroduction, mainHelpPage, secondPage, thirdPage } from '../action/help'
-import { createTicket, ticketAdd, ticketClose } from '../action/ticket-system'
 import { meme } from '../action/meme'
 import kick from '../action/kick'
 import ban from '../action/ban'
@@ -29,7 +27,6 @@ import { google } from '../action/google'
 import clear from '../action/clearHistory'
 import { AsyncDatabase } from '../sqlite/sqlite'
 import { createGiveaway, evalGiveaway, newParticipant } from '../action/giveaway'
-import { handleBlackJackCommands } from '../action/blackjack/handleCommands'
 import poll from '../action/poll'
 import rename from '../action/rename'
 // import { autocomplete } from "../action/youtube";
@@ -124,77 +121,16 @@ const handleSlashCommand = async (client: Client, interaction: CommandInteractio
     case 'timeout':
       await timeout(client, interaction, logger.logger('timeout'), db)
       return
-    case 'ticket-create':
-      if ((interaction.guild == null) || (interaction.member == null) || interaction.member.user.id != null) {
-        await interaction.reply({ content: 'Ticket konnte nicht erstellt werden', ephemeral: true })
-        return
-      }
-      console.log(interaction.member.user.id)
-      // eslint-disable-next-line no-case-declarations
-      const result = await createTicket(client, interaction.guild, interaction.member.user.id, logger.logger('ticket-system'))
-      if (typeof result === 'string') {
-        await interaction.reply({ content: 'Ticket konnte nicht erstellt werden.', ephemeral: true })
-        return
-      }
-      await interaction.reply({ content: `Ticket erstellt. <#${result.id}>`, ephemeral: true })
-      return
-    case 'ticket-add':
-      if ((interaction.guild == null) || (interaction.member == null) || interaction.member.user.id != null) {
-        await interaction.reply({ content: 'Ticket konnte nicht erstellt werden', ephemeral: true })
-        return
-      }
-      channel = await interaction.guild.channels.fetch(interaction.channelId)
-      if ((channel == null) || !/ticket-[0-9]{4}/.test(channel?.name ?? '')) {
-        await interaction.reply({
-          content: 'Du kannst den Befehl nur in Tickets nutzen',
-          ephemeral: true
-        })
-        return
-      }
-
-      if (channel.type !== ChannelType.GuildText) return
-      await ticketAdd(interaction.options?.get('target')?.value?.toString() ?? interaction.member.user.id, channel)
-      await interaction.reply({
-        content: 'Fertig!',
-        ephemeral: true
-      })
-      return
-    case 'ticket-close':
-      if ((interaction.guild == null) || (interaction.member == null) || interaction.member.user.id != null) {
-        await interaction.reply({ content: 'Ticket konnte nicht erstellt werden', ephemeral: true })
-        return
-      }
-      channel = await interaction.guild.channels.fetch(interaction.channelId)
-      if ((channel == null) || !/ticket-[0-9]{4}/.test(channel?.name ?? '')) {
-        await interaction.reply({
-          content: 'Du kannst den Befehl nur in Tickets nutzen',
-          ephemeral: true
-        })
-        return
-      }
-
-      if (channel.type !== ChannelType.GuildText) return
-      await ticketClose(channel)
-      await interaction.reply({
-        content: 'Fertig!',
-        ephemeral: true
-      })
-      break
     case 'giveaway':
       await createGiveaway(client, interaction, db)
       break
     case 'giveaway-eval':
       await evalGiveaway(client, interaction, db)
       break
-    case 'bj':
-      await handleBlackJackCommands(interaction, logger)
   }
 }
 
 const handleButtonInteraction = async (client: Client, interaction: ButtonInteraction, db: AsyncDatabase, logger: LogManager): Promise<void> => {
-  if (/(addRole-|removeRole-)([0-9]+)/.test(interaction.customId)) {
-    await toggleRoles(client, interaction, logger.logger('Toggle-Roles'))
-  }
   if (interaction.customId === 'giveaway-participate') {
     await newParticipant(client, interaction, db)
   }
@@ -209,21 +145,6 @@ const handleButtonInteraction = async (client: Client, interaction: ButtonIntera
   }
   if (interaction.customId === 'help-page4') {
     await fourthPage(interaction)
-  }
-  if (interaction.customId === 'ticket-delete') {
-    await interaction.reply({
-      content: 'Lösche Ticket',
-      ephemeral: true,
-      components: [
-        new ActionRowBuilder<ButtonBuilder>()
-          .addComponents(
-            new ButtonBuilder()
-              .setLabel('Bestätigen')
-              .setStyle(ButtonStyle.Danger)
-              .setCustomId('ticket-delete-confirm')
-          )
-      ]
-    })
   }
   if (interaction.customId === 'ticket-delete-confirm') {
     await interaction.message.channel.delete()

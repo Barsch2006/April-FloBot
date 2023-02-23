@@ -8,7 +8,6 @@ import registerCommands from './action/registerCommands'
 import { AsyncDatabase } from './sqlite/sqlite'
 import message from './listeners/message'
 import path from 'path'
-import { PersistentDataStorage } from './action/blackjack/persistentDataStorage'
 import { evalGiveawayBackground } from './action/giveaway'
 
 const logManager: LogManager = LogManager.getInstance()
@@ -68,7 +67,6 @@ async function init (): Promise<void> {
         await db.runAsync(`ALTER TABLE giveaways add author_display_name TEXT NULL`)
         await db.runAsync(`ALTER TABLE giveaways add author_avatar_url TEXT NULL`)
       }
-      await (await PersistentDataStorage.instance()).initBlackJack(db)
     })
 
     const client = new Client({
