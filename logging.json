@@ -1,7 +1,0 @@
-{
-  "data": {
-    "path": "./logs"
-  },  
-  "loggerImplementation": "FileConsoleLogger",
-  "minLevel": "LOG"
-}
