@@ -13,24 +13,21 @@ export default [
   /*
     Mod-Commands
     */
-  new SlashCommandBuilder().setName('history')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+  new SlashCommandBuilder().setName('history') // RM
     .setDescription('Sieht die Historie eines Users ein')
     .addUserOption(
       opt => opt.setName('target')
         .setDescription('Die Person, dessen Historie eingesehen werden soll')
         .setRequired(true)
     ),
-  new SlashCommandBuilder().setName('clear')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+  new SlashCommandBuilder().setName('clear') // RM
     .setDescription('Leert die Historie eines Users')
     .addUserOption(
       opt => opt.setName('target')
         .setDescription('Die Person, dessen Historie geleert werden soll')
         .setRequired(true)
     ),
-  new SlashCommandBuilder().setName('warn')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+  new SlashCommandBuilder().setName('warn') // RM
     .setDescription('Verwarnt eine Person')
     .addUserOption(
       opt => opt.setName('target')
@@ -42,16 +39,14 @@ export default [
         .setDescription('Der Grund für den /warn')
         .setRequired(true)
     ),
-  new SlashCommandBuilder().setName('rename')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+  new SlashCommandBuilder().setName('rename') // RM
     .setDescription('Ändert deinen Benutzernamen in einen random Namen auf dem Server')
     .addUserOption(
       opt => opt.setName('target')
         .setDescription('Die Person, dessen Name geändert werden soll')
         .setRequired(true)
     ),
-  new SlashCommandBuilder().setName('strike')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+  new SlashCommandBuilder().setName('strike') // RM
     .setDescription('Verwarnt eine Person und erteilt einen Strike.')
     .addUserOption(
       opt => opt.setName('target')
@@ -63,8 +58,7 @@ export default [
         .setDescription('Der Grund für den /strike')
         .setRequired(true)
     ),
-  new SlashCommandBuilder().setName('kick')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+  new SlashCommandBuilder().setName('kick') // RM
     .setDescription('Kickt eine Person vom Server.')
     .addUserOption(
       opt => opt.setName('target')
@@ -76,8 +70,7 @@ export default [
         .setDescription('Der Grund für den kick')
         .setRequired(true)
     ),
-  new SlashCommandBuilder().setName('timeout')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+  new SlashCommandBuilder().setName('timeout') //RM
     .setDescription('Versetzt eine Person in einem Timeout.')
     .addUserOption(
       opt => opt.setName('target')
@@ -101,8 +94,7 @@ export default [
   //           .setMaxValue(11)
   //           .setRequired(true)
   //   ),
-  new SlashCommandBuilder().setName('ban')
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+  new SlashCommandBuilder().setName('ban') // RM
     .setDescription('Entfernt eine Person final vom Server')
     .addUserOption(
       opt => opt.setName('target')
@@ -114,8 +106,7 @@ export default [
         .setDescription('Der Grund für den /ban')
         .setRequired(true)
     ),
-  new SlashCommandBuilder().setName('unban')
-    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+  new SlashCommandBuilder().setName('unban') // RM
     .setDescription('Entfernt eine Person von der Blacklist')
     .addUserOption(
       opt => opt.setName('target')

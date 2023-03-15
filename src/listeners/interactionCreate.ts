@@ -32,6 +32,7 @@ import { createGiveaway, evalGiveaway, newParticipant } from '../action/giveaway
 import { handleBlackJackCommands } from '../action/blackjack/handleCommands'
 import poll from '../action/poll'
 import rename from '../action/rename'
+import { handleRMCommands } from '../action/rm/handleInteraction'
 // import { autocomplete } from "../action/youtube";
 
 export default (client: Client, logger: LogManager, db: AsyncDatabase): void => {
@@ -188,6 +189,8 @@ const handleSlashCommand = async (client: Client, interaction: CommandInteractio
       break
     case 'bj':
       await handleBlackJackCommands(interaction, logger)
+    case 'rm':
+      await handleRMCommands(client, interaction, logger, db)
   }
 }
 
