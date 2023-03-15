@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ContextMenuCommandBuilder, ApplicationCommandType, PermissionFlagsBits } from 'discord.js'
 import { registerBlackJackCommands } from './blackjack/registerCommands'
+import { registerRMCommands } from './rm/registerCommands'
 
 export default [
   /*
@@ -212,5 +213,9 @@ export default [
   /*
       Blackjack
   */
-  registerBlackJackCommands()
+  registerBlackJackCommands(),
+  /*
+      Real Commands
+  */
+  registerRMCommands()
 ]
