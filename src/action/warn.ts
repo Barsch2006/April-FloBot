@@ -7,19 +7,19 @@ export default async function (client: Client, interaction: CommandInteraction, 
   const target = interaction.options.getMember('target') as GuildMember
   const reason = interaction.options.get('reason')?.value?.toString() ?? ''
 
-  try {
-    await db.run(`insert into records (uuid, dc_id, points, type, reason) VALUES (?, ?, ?, ?, ?)`, [uuid(), target.id, points, type, reason])
-    logger.logSync("INFO", `Created a warn for ${target.id}`)
-  } catch (e) {
-    logger.logSync("ERROR", `Warn could not be entered in `)
-    await interaction.reply({
-      embeds: [
-        new EmbedBuilder().setDescription('Der Warn / Strike ist fehlgeschlagen.')
-      ],
-      ephemeral: true
-    })
-    return
-  }
+  // try {
+  //   await db.run(`insert into records (uuid, dc_id, points, type, reason) VALUES (?, ?, ?, ?, ?)`, [uuid(), target.id, points, type, reason])
+  //   logger.logSync("INFO", `Created a warn for ${target.id}`)
+  // } catch (e) {
+  //   logger.logSync("ERROR", `Warn could not be entered in `)
+  //   await interaction.reply({
+  //     embeds: [
+  //       new EmbedBuilder().setDescription('Der Warn / Strike ist fehlgeschlagen.')
+  //     ],
+  //     ephemeral: true
+  //   })
+  //   return
+  // }
 
   try {
     await target.send({

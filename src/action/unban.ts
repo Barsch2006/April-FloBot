@@ -17,11 +17,11 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     .setTimestamp()
 
   try {
-    await interaction.guild?.members.unban(target)
+    // await interaction.guild?.members.unban(target)
     await interaction.reply({ embeds: [dmDisabled] })
 
-    logger.logSync('INFO', 'Entbannung wurde erfolgreich ausgefuehrt')
-    logger.logSync('INFO', `User <@${target.toString()}> wurde entbannt.`)
+    // logger.logSync('INFO', 'Entbannung wurde erfolgreich ausgefuehrt')
+    // logger.logSync('INFO', `User <@${target.toString()}> wurde entbannt.`)
   } catch (err) {
     logger.logSync('ERROR', `Entbannung konnte nicht ausgefuehrt werden. ${JSON.stringify(err)}`)
   }

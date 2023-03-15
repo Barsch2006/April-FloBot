@@ -13,15 +13,6 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
   const reason = interaction.options.get('reason', true).value?.toString() ?? ''
   let dmSucess: boolean
 
-  // record
-  try {
-    await db.runAsync('INSERT INTO records (uuid, dc_id, type, points, reason) VALUES (?, ?, \'BAN\', 0, ?)', [
-      uuid(), target, reason
-    ])
-  } catch (e) {
-    logger.logSync('ERROR', `SQLITE-ERROR: ${JSON.stringify(e)}`)
-  }
-
   // send dm
   try {
     const dm = await client.users.fetch(target)
@@ -41,17 +32,17 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     dmSucess = false
   }
 
-  try {
-    await interaction.guild?.members.ban(target, { reason })
-    logger.logSync("INFO", `Nutzer mit der ID ${target} wurde gebannt.`)
-  } catch (e) {
-    logger.logSync('ERROR', `Ban ${target} konnte nicht ausgefuehrt werden. ${JSON.stringify(e)}`)
-    await interaction.reply({
-      ephemeral: false,
-      content: 'Der Ban war erfolgslos.'
-    })
-    return
-  }
+  // try {
+  //   await interaction.guild?.members.ban(target, { reason })
+  //   logger.logSync("INFO", `Nutzer mit der ID ${target} wurde gebannt.`)
+  // } catch (e) {
+  //   logger.logSync('ERROR', `Ban ${target} konnte nicht ausgefuehrt werden. ${JSON.stringify(e)}`)
+  //   await interaction.reply({
+  //     ephemeral: false,
+  //     content: 'Der Ban war erfolgslos.'
+  //   })
+  //   return
+  // }
 
   try {
     await interaction.reply({

@@ -28,13 +28,13 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     .setTimestamp()
     .addFields({ name: 'Grund', value: reason })
 
-  try {
-    await db.runAsync('INSERT INTO records (uuid, dc_id, type, points, reason) VALUES (?, ?, \'KICK\', 0, ?)', [
-      uuid(), target, reason
-    ])
-  } catch (e) {
-    logger.logSync("ERROR", `SQLITE-ERROR: ${JSON.stringify(e)}`)
-  }
+  // try {
+  //   await db.runAsync('INSERT INTO records (uuid, dc_id, type, points, reason) VALUES (?, ?, \'KICK\', 0, ?)', [
+  //     uuid(), target, reason
+  //   ])
+  // } catch (e) {
+  //   logger.logSync("ERROR", `SQLITE-ERROR: ${JSON.stringify(e)}`)
+  // }
 
   try {
     await (await client.users.fetch(target)).send({
@@ -51,18 +51,18 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     dmSucess = false
   }
 
-  try {
-    await interaction.guild?.members.kick(target, reason)
-    logger.logSync('INFO', `Nutzer mit ID ${target} wurde gekickt.`)
-  } catch (e) {
-    await interaction.reply({
-      embeds: [
-        new EmbedBuilder().setDescription('Der Kick ist fehlgeschlagen.')
-      ],
-      ephemeral: false
-    })
-    return
-  }
+  // try {
+  //   await interaction.guild?.members.kick(target, reason)
+  //   logger.logSync('INFO', `Nutzer mit ID ${target} wurde gekickt.`)
+  // } catch (e) {
+  //   await interaction.reply({
+  //     embeds: [
+  //       new EmbedBuilder().setDescription('Der Kick ist fehlgeschlagen.')
+  //     ],
+  //     ephemeral: false
+  //   })
+  //   return
+  // }
 
   try {
     if (dmSucess) {
