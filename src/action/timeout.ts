@@ -13,7 +13,7 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
   var member = interaction.member as GuildMember
   const user = interaction.options.getMember('target') as GuildMember;
   // member = user
-  const zeit = ms(interaction.options.get('zeit')?.value as string)
+  const zeit = ms('15m')
 
   const embed = new EmbedBuilder()
     .setTitle('User hat einen Timeout bekommen')
@@ -33,16 +33,13 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
   try {
     interaction.reply({ embeds: [Oembed], ephemeral: false, fetchReply: true }).then(async (id) => {
       await sleep(5000);
-      const channel = interaction.channel as TextChannel
-      const message = await channel?.messages.fetch(id.id);
       await member?.timeout(zeit, `${member.user.username} hat versucht ${user.user.username} zu timeouten.`)
-      await message.reply({ embeds: [embed] })
+      await (await member.createDM(true)).send({ embeds: [embed]});
     })
   } catch (err) {
     logger.logSync('ERROR', `Timeout konnte nicht ausgefuehrt werden. ${JSON.stringify(err)}`)
     await interaction.reply({
-      embeds: [new EmbedBuilder().setDescription('Timeout fehlgeschlagen')], ephemeral: false
-    })
+      embeds: [new EmbedBuilder().setDescription('Timeout fehlgeschlagen')], ephemeral: false})
   }
 }
 
