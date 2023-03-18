@@ -76,7 +76,8 @@ async function init (): Promise<void> {
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.MessageContent,
-        IntentsBitField.Flags.GuildMessages
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildInvites
       ]
     })
 

@@ -1,4 +1,4 @@
-import { Client, Colors, CommandInteraction, EmbedBuilder, GuildMember } from 'discord.js'
+import { Client, Colors, CommandInteraction, EmbedBuilder, GuildMember, TextChannel } from 'discord.js'
 import ms from 'ms'
 import { AsyncDatabase } from '../sqlite/sqlite'
 import { ILogger } from '../logger/logger'
@@ -23,13 +23,31 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     .setAuthor({ name: `Originaler Grund: ${reason}` })
     .setTimestamp()
 
+  const Oembed = new EmbedBuilder()
+    .setTitle('User hat einen Timeout bekommen')
+    .setDescription(`<@${user.id}> hat einen Timeout bekommen.`)
+    .setColor(Colors.Purple)
+    .addFields({ name: 'Grund', value: reason })
+    .setTimestamp()
+
   try {
-    await member?.timeout(zeit, `${member.user.username} hat versucht ${user.user.username} zu timeouten.`)
-    await interaction.reply({ embeds: [embed], ephemeral: false })
+    interaction.reply({ embeds: [Oembed], ephemeral: false, fetchReply: true }).then(async (id) => {
+      await sleep(5000);
+      const channel = interaction.channel as TextChannel
+      const message = await channel?.messages.fetch(id.id);
+      await member?.timeout(zeit, `${member.user.username} hat versucht ${user.user.username} zu timeouten.`)
+      await message.reply({ embeds: [embed] })
+    })
   } catch (err) {
     logger.logSync('ERROR', `Timeout konnte nicht ausgefuehrt werden. ${JSON.stringify(err)}`)
     await interaction.reply({
       embeds: [new EmbedBuilder().setDescription('Timeout fehlgeschlagen')], ephemeral: false
     })
   }
+}
+
+function sleep(ms: number) {
+  return new Promise<void>((acc, rej) => {
+    setTimeout(() => { acc() }, ms)
+  });
 }
