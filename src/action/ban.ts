@@ -19,12 +19,12 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     await dm.send({
       embeds: [
         new EmbedBuilder()
-          .setTitle('Ban')
-          .setDescription('Es tut uns sehr leid, jedoch sind wir gezwungen dich aufgrund deines Verhaltens vom Server auszuschließen. Bist du der Meinung, zu unrecht gebannt worden zu sein, melde dich bitte bei uns persönlich.')
+          .setTitle('April April!')
+          .setDescription('Bitte sag es niemandem weiter. Du wurdest natürlich nicht gebannt ;)')
           .addFields(
             { name: 'Grund', value: reason }
           )
-          .setColor(Colors.Red)
+          .setColor(Colors.Purple)
       ]
     })
     dmSucess = true
@@ -32,24 +32,12 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     dmSucess = false
   }
 
-  // try {
-  //   await interaction.guild?.members.ban(target, { reason })
-  //   logger.logSync("INFO", `Nutzer mit der ID ${target} wurde gebannt.`)
-  // } catch (e) {
-  //   logger.logSync('ERROR', `Ban ${target} konnte nicht ausgefuehrt werden. ${JSON.stringify(e)}`)
-  //   await interaction.reply({
-  //     ephemeral: false,
-  //     content: 'Der Ban war erfolgslos.'
-  //   })
-  //   return
-  // }
-
   try {
     await interaction.reply({
       embeds: [new EmbedBuilder()
         .setTitle('User wurde gebannt')
         .setDescription((dmSucess) ? `<@${target.toString()}> wurde erfolgreich benachrichtigt und gebannt.` : `<@${target.toString()}> wurde erfolgreich gebannt. Die Benachrichtigung konnte nicht versendet werden.`)
-        .setColor(Colors.Red)
+        .setColor(Colors.Purple)
         .setAuthor({ name: `Gebannt von: ${interaction.user.tag}` })
         .addFields({ name: 'Grund', value: reason })
         .setTimestamp()],
