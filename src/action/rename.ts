@@ -8,7 +8,7 @@ const caseCorrectAndRemoveSpaces = (input: string): string => {
 }
 
 export default async function rename(client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
-  const user = interaction.options.getMember('target') as GuildMember
+  const user = interaction.member as GuildMember
   const userid = user.id
 
   const nick = caseCorrectAndRemoveSpaces(adjectives[randomInt(adjectives.length)]) + caseCorrectAndRemoveSpaces(colors[randomInt(colors.length)]) + caseCorrectAndRemoveSpaces(nicknames[randomInt(nicknames.length)])
@@ -22,10 +22,7 @@ export default async function rename(client: Client, interaction: CommandInterac
       embeds: [
         new EmbedBuilder()
           .setTitle('Umbennenung')
-          .setDescription('April! April! Jemand hat versucht dich zu trollen!')
-          .addFields({
-            name: "Jemand", value: `${interaction.user.username}`
-          })
+          .setDescription('April! April! Du hast versucht jemanden zu trollen!')
           .setColor(Colors.Purple)
       ]
     })
@@ -33,22 +30,12 @@ export default async function rename(client: Client, interaction: CommandInterac
   } catch (e) {
     dmSucess = false
   }
-
-  if (dmSucess) {
-    await interaction.reply({
-      embeds: [
-        new EmbedBuilder().setTitle(`Der Username wurde erfolgreich zu ${nick} geändert. `)
-          .setColor(Colors.Purple)
-      ],
-      ephemeral: false
-    })
-  } else {
-    await interaction.reply({
-      embeds: [
-        new EmbedBuilder().setTitle(`Rename gescheitert an Inkompetenz`)
-          .setColor(Colors.Red)
-      ],
-      ephemeral: true
-    })
-  }
+  
+  await interaction.reply({
+    embeds: [
+      new EmbedBuilder().setTitle(`Rename gescheitert an Inkompetenz`)
+        .setColor(Colors.Red)
+    ],
+    ephemeral: true
+  })
 }
