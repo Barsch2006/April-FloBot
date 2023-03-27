@@ -116,4 +116,12 @@ export const registerRMCommands = (): any => {
                         .setRequired(true)
                 ),
         )
+        .addSubcommand(
+            new SlashCommandSubcommandBuilder().setName('startapril')
+                .setDescription('bennent die Channels für den 01. April um')
+        )
+        .addSubcommand(
+            new SlashCommandSubcommandBuilder().setName('stopapril')
+                .setDescription('bennent die Channels für nach dem 01. April um')
+        )
 }

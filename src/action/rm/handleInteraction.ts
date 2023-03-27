@@ -1,6 +1,6 @@
 import { AsyncDatabase } from './../../sqlite/sqlite';
 import { Client, CommandInteraction, CommandInteractionOptionResolver } from "discord.js";
-import LogManager from "src/logger/logger";
+import LogManager, { ILogger } from "src/logger/logger";
 import rename from './slashCommands/rename';
 import unban from './slashCommands/unban';
 import ban from './slashCommands/ban';
@@ -9,6 +9,8 @@ import warn from './slashCommands/warn';
 import clearHistory from './slashCommands/clearHistory';
 import timeout from './slashCommands/timeout';
 import history from './slashCommands/history';
+import startApril from './slashCommands/startApril';
+import stopApril from './slashCommands/stopApril';
 
 export const handleRMCommands = async (client: Client, interaction: CommandInteraction, logger: LogManager, db: AsyncDatabase): Promise<void> => {
     const options = interaction.options as CommandInteractionOptionResolver
@@ -41,6 +43,12 @@ export const handleRMCommands = async (client: Client, interaction: CommandInter
             return
         case 'history':
             await history(client, interaction, logger.logger('RM-history'), db)
+            return
+        case 'startapril':
+            await startApril(client, interaction, logger.logger('Start-April'), db);
+            return
+        case 'stopapril':
+            await stopApril(client, interaction, logger.logger('Start-April'), db);
             return
     }
 }
