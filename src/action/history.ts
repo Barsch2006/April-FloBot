@@ -25,7 +25,7 @@ export default async function (client: Client, interaction: CommandInteraction, 
         Anzahl Points: ${gespoints}
         `
       )
-      .setColor(Colors.Yellow)
+      .setColor(Colors.Purple)
       .setTimestamp()
     logger.logSync("INFO", `Fake-History from ${target.id}`)
     await interaction.reply({

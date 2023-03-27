@@ -12,7 +12,7 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
   const dmDisabled = new EmbedBuilder()
     .setTitle('User wurde entbannt')
     .setDescription(`<@${target.toString()}> wurde entbannt`)
-    .setColor(Colors.Green)
+    .setColor(Colors.Purple)
     .setAuthor({ name: `Entbannt von: ${interaction.user.tag}` })
     .setTimestamp()
 
