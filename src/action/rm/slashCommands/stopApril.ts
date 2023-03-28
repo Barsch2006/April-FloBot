@@ -13,7 +13,18 @@ export default async function (client: Client, interaction: CommandInteraction, 
                     }
                 }
             })
-            await interaction.reply({content: "Channels erfolgreich umbennant", ephemeral: true})
+            var iferr = false;
+            try {
+                await client.user?.setAvatar(process.env.AVATAR ?? '')
+                iferr = false;
+            } catch (err: any) {
+                iferr = true
+            }
+            if (iferr == true) {
+                await interaction.reply({content: "Channels erfolgreich umbennant und Avatar nicht geändert", ephemeral: true})
+            } else {
+                await interaction.reply({content: "Channels erfolgreich umbennant und Avatar geändert", ephemeral: true})
+            }
         })
     } catch (err: any) {
         logger.log("ERROR", err)

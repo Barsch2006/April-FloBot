@@ -1,6 +1,8 @@
 import { Client, CommandInteraction, EmbedBuilder, GuildMember, Colors, ChannelType, GuildBasedChannel, NewsChannel } from "discord.js"
 import { AsyncDatabase } from '../../../sqlite/sqlite'
 import { ILogger } from '../../../logger/logger'
+import { config } from 'dotenv'
+config()
 
 export default async function (client: Client, interaction: CommandInteraction, logger: ILogger, db: AsyncDatabase): Promise<void> {
     try {
@@ -13,11 +15,22 @@ export default async function (client: Client, interaction: CommandInteraction, 
                     }
                 }
             })
-            await interaction.reply({content: "Channels erfolgreich umbennant", ephemeral: true})
+            var iferr = false;
+            try {
+                await client.user?.setAvatar(process.env.GLITCHY ?? '')
+                iferr = false;
+            } catch (err: any) {
+                iferr = true
+            }
+            if (iferr == true) {
+                await interaction.reply({content: "Channels erfolgreich umbennant und Avatar nicht geändert", ephemeral: true})
+            } else {
+                await interaction.reply({content: "Channels erfolgreich umbennant und Avatar geändert", ephemeral: true})
+            }
         })
     } catch (err: any) {
         logger.log("ERROR", err)
-        await interaction.reply("Ein Fehler ist aufgetreten")
+        await interaction.reply({content: "Ein Fehler ist aufgetreten", ephemeral: true})
     }
 }
 
