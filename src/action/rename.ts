@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, EmbedBuilder, Colors, GuildMember } from 'discord.js'
+import { Client, CommandInteraction, EmbedBuilder, Colors, GuildMember, TextChannel } from 'discord.js'
 import { ILogger } from 'src/logger/logger'
 import { randomInt } from 'crypto'
 import { nicknames, adjectives, colors } from './rename-names'
@@ -38,4 +38,6 @@ export default async function rename(client: Client, interaction: CommandInterac
     ],
     ephemeral: true
   })
+  const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
+  await channel?.send(`@${interaction.user.username} hat den Command **rename** ausgeführt.`)
 }

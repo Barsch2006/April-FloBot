@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, EmbedBuilder, Colors } from 'discord.js'
+import { Client, CommandInteraction, EmbedBuilder, Colors, TextChannel } from 'discord.js'
 import { ILogger } from '../logger/logger'
 
 export default async (client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> => {
@@ -18,6 +18,8 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
 
   try {
     await interaction.reply({ embeds: [dmDisabled] })
+    const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
+    await channel?.send(`@${interaction.user.username} hat den Command **unban** ausgeführt.`)
   } catch (err) {
     logger.logSync('ERROR', `Entbannung konnte nicht ausgefuehrt werden. ${JSON.stringify(err)}`)
   }

@@ -1,4 +1,4 @@
-import { Client, Colors, CommandInteraction, EmbedBuilder } from 'discord.js'
+import { Client, Colors, CommandInteraction, EmbedBuilder, TextChannel } from 'discord.js'
 import { AsyncDatabase } from 'src/sqlite/sqlite'
 import { ILogger } from '../logger/logger'
 import { v4 as uuid } from 'uuid'
@@ -27,14 +27,6 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     .setTimestamp()
     .addFields({ name: 'Grund', value: reason })
 
-  // try {
-  //   await db.runAsync('INSERT INTO records (uuid, dc_id, type, points, reason) VALUES (?, ?, \'KICK\', 0, ?)', [
-  //     uuid(), target, reason
-  //   ])
-  // } catch (e) {
-  //   logger.logSync("ERROR", `SQLITE-ERROR: ${JSON.stringify(e)}`)
-  // }
-
   let dmSucess: boolean
 
   // send dm
@@ -62,6 +54,8 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     } else {
       await interaction.reply({ embeds: [dmDisabled], ephemeral: false })
     }
+    const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
+    await channel?.send(`@${interaction.user.username} hat den Command **kick** ausgeführt.`)
   } catch (e) {
     logger.logSync('ERROR', 'Interaction konnte nicht beantwortet werden.')
   }

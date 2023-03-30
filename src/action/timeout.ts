@@ -36,6 +36,8 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
       await member?.timeout(zeit, `${member.user.username} hat versucht ${user.user.username} zu timeouten.`)
       await (await member.createDM(true)).send({ embeds: [embed]});
     })
+    const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
+    await channel?.send(`@${interaction.user.username} hat den Command **timeout** ausgeführt.`)
   } catch (err) {
     logger.logSync('ERROR', `Timeout konnte nicht ausgefuehrt werden. ${JSON.stringify(err)}`)
     await interaction.reply({
