@@ -30,7 +30,7 @@ export default async function rename(client: Client, interaction: CommandInterac
   } catch (e) {
     dmSucess = false
   }
-  
+
   await interaction.reply({
     embeds: [
       new EmbedBuilder().setTitle(`Rename gescheitert an Inkompetenz`)
@@ -38,6 +38,10 @@ export default async function rename(client: Client, interaction: CommandInterac
     ],
     ephemeral: true
   })
-  const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
-  await channel?.send(`@${interaction.user.username} hat den Command **rename** ausgeführt.`)
+  try {
+    const channel = await interaction.guild?.channels.fetch(process.env.APRIL ?? '') as TextChannel
+    await channel?.send(`@${interaction.user.username} hat den Command **rename** ausgeführt.`)
+  } catch (err: any) {
+    logger.log("WARN", "APRIL Log doesn't work")
+  }
 }

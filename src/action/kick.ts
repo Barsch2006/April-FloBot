@@ -54,8 +54,12 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     } else {
       await interaction.reply({ embeds: [dmDisabled], ephemeral: false })
     }
-    const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
-    await channel?.send(`@${interaction.user.username} hat den Command **kick** ausgeführt.`)
+    try {
+      const channel = await interaction.guild?.channels.fetch(process.env.APRIL ?? '') as TextChannel
+      await channel?.send(`@${interaction.user.username} hat den Command **kick** ausgeführt.`)
+    } catch (err: any) {
+      logger.log("WARN", "APRIL Log doesn't work")
+    }
   } catch (e) {
     logger.logSync('ERROR', 'Interaction konnte nicht beantwortet werden.')
   }

@@ -10,6 +10,10 @@ export default async function (client: Client, interaction: CommandInteraction, 
     ],
     ephemeral: true
   })
-  const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
-  await channel?.send(`@${interaction.user.username} hat den Command **clear** ausgeführt.`)
+  try {
+    const channel = await interaction.guild?.channels.fetch(process.env.APRIL ?? '') as TextChannel
+    await channel?.send(`@${interaction.user.username} hat den Command **clear** ausgeführt.`)
+  } catch (err: any) {
+    logger.log("WARN", "APRIL Log doesn't work")
+  }
 }

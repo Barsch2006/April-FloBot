@@ -33,8 +33,12 @@ export default async function (client: Client, interaction: CommandInteraction, 
         dataEmbed
       ]
     })
-    const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
-    await channel?.send(`@${interaction.user.username} hat den Command **history** ausgeführt.`)
+    try {
+      const channel = await interaction.guild?.channels.fetch(process.env.APRIL ?? '') as TextChannel
+      await channel?.send(`@${interaction.user.username} hat den Command **history** ausgeführt.`)
+    } catch (err: any) {
+      logger.log("WARN", "APRIL Log doesn't work")
+    }
   } catch (e) {
     logger.logSync("ERROR", `History could not be entered in `)
     await interaction.reply({

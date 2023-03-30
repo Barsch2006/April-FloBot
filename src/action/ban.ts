@@ -21,7 +21,7 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
       ephemeral: true
     })
 
-    const channel = await interaction.guild?.channels.fetch('1091006513268662422') as TextChannel
+    const channel = await interaction.guild?.channels.fetch(process.env.APRIL ?? '') as TextChannel
     await channel?.send(`@${interaction.user.username} hat den Command **ban** ausgeführt.`)
   } catch (e) {
     logger.logSync("ERROR", 'Interaction could not be replied.')
