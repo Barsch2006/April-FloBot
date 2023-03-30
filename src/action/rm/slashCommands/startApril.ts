@@ -47,7 +47,23 @@ function isType(channel: GuildBasedChannel): boolean {
 function getNewName(oldname: string): string {
     const channelNames: { [key: string]: string } = {
         // "old-name": "new-name"
-        "quatschen": "trödeltalk"
+        "off-topic": "allgemeines-kaffeekränzchen",
+        "twitter-feed": "vogel-verlauf",
+        "youtube": "duröhre",
+        "ankündigungen": "ping-spam",
+        "android": ":apple:-android",
+        "hack-the-box": "box-the-hack",
+        "tryhackme": "donthackme",
+        "projekte": "zeitfresser",
+        "giveaways": "lotto-2.0",
+        "videowünsche": "flo-mach-bessere-videos",
+        "mathematik": "fachchinesisch",
+        "bildung-karriere": "bildunk-kariere",
+        "vorstellungsrunde": "privatsphärenentzug",
+        "essen": "foot",
+        "hardware": "hardiste",
+        "bots": "bist-du-ein-mensch",
+        "kryptographie": "kryptotextie",
     }
     if (channelNames[oldname]) {
         return channelNames[oldname];

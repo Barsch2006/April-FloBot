@@ -15,7 +15,7 @@ export async function google (client: Client, interaction: CommandInteraction, l
     await interaction.reply({
       embeds: [new EmbedBuilder()
         .setTitle('Let me google that for you')
-        .setDescription(`[_${query}_ auf ${engine === 'g' ? 'google' : 'duckduckgo'} suchen](https://lmrgtfy.davwheat.dev/?q=${encodedQuery}&se=${engine})`)
+        .setDescription(`[_${query}_ auf ${engine === 'g' ? 'google' : 'duckduckgo'} suchen](https://www.blinde-kuh.de/bksearch.cgi?query=${encodedQuery})`)
         .setColor(Colors.Blue)
       ]
     })
