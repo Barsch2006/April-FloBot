@@ -2,7 +2,7 @@ import { Client, CommandInteraction, EmbedBuilder } from 'discord.js'
 import { ILogger } from 'src/logger/logger'
 import fs from 'fs'
 
-export async function metafrage (client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
+export async function metafrage(client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
   if (!interaction.isRepliable()) {
     logger.logSync('ERROR', 'Gegebene interaction kann nicht beantwortet werden.')
     return
@@ -23,7 +23,7 @@ __Stelle deine Frage direkt, ohne erstmal nach einem Experten zu suchen. Dies er
     logger.logSync('ERROR', `Metafragen-Info konnte nicht gesendet werden!. Error: ${JSON.stringify(err)}`)
   }
 }
-export async function codeblocks (client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
+export async function codeblocks(client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
   if (!interaction.isRepliable()) {
     logger.logSync('ERROR', 'Gegebene interaction kann nicht beantwortet werden.')
     return
@@ -50,7 +50,7 @@ Codeblocks sind die beste Art, Code auf Discord zu teilen, und alle werden dir D
   }
 }
 
-export async function about (client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
+export async function about(client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
   if (!interaction.isRepliable()) {
     logger.logSync('ERROR', 'Gegebene interaction kann nicht beantwortet werden.')
     return
@@ -69,8 +69,8 @@ export async function about (client: Client, interaction: CommandInteraction, lo
     .setTitle('Etwas über mich')
     .setAuthor({ name: 'Moderation Bot', url: 'https://discord.js.org' })
     .setDescription('Ich bin ein Discord-Bot, der für die Administration, Verwaltung und Moderation des Servers von <@950222367311937606> erstellt wurde. ' +
-            'Um zu sehen, was ich alles kann, nutze einfach /help.\n\n**__Meine Entwickler:__**')
-  // .setThumbnail('https://i.imgur.com/AfFp7pu.png')
+      'Um zu sehen, was ich alles kann, nutze einfach /help.\n\n**__Meine Entwickler:__**')
+    // .setThumbnail('https://i.imgur.com/AfFp7pu.png')
     .addFields(
       { name: 'heeecker', value: '<@768872955500953710>\nheeecker#5770', inline: true },
       { name: 'oglimmer', value: '<@441658607818375183>\noglimmer#4256', inline: true },
@@ -93,20 +93,46 @@ export async function about (client: Client, interaction: CommandInteraction, lo
   }
 }
 
-export async function ping (client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
+export async function ping(client: Client, interaction: CommandInteraction, logger: ILogger): Promise<void> {
   if (!interaction.isRepliable()) {
     logger.logSync('ERROR', 'Gegebene interaction kann nicht beantwortet werden.')
     return
   }
 
-  const sent = await interaction.reply({ content: 'Pinging...', fetchReply: true })
-
-  try {
-    await interaction.editReply({
-      content: `PONG!\nCurrent Bot latency: ${client.ws.ping}ms\nRoundtrip latency: ${sent.createdTimestamp - interaction.createdTimestamp}ms`
-    })
-    logger.logSync('INFO', 'Pong wurde erfolgreich gesendet.')
-  } catch (err) {
-    logger.logSync('ERROR', `Ping konnte nicht gesendet werden. Error ${JSON.stringify(err)}`)
+  let timeout = Math.random()
+  if (timeout <= 0.4) {
+    interaction.deferReply(); // sendet eine initiale Antwort
+    setTimeout(async () => {
+      const sent = await interaction.editReply({ content: "Pinging..." });
+      setTimeout(() => {
+        interaction.editReply({
+          content: "Ping wird ausgefürt. 100 % abgeschlossen. Schalten Sie Ihren Discord Client nicht aus."
+        }).then(() => {
+          logger.logSync('INFO', 'Pong 1.1 wurde erfolgreich gesendet.');
+        }).catch((err) => {
+          logger.logSync('ERROR', `Ping 1.1 konnte nicht gesendet werden. Error ${JSON.stringify(err)}`);
+        });
+        setTimeout(() => {
+          interaction.editReply({
+            content: "Sind sie in Deutschland?"
+          }).then(() => {
+            logger.logSync('INFO', 'Pong 1.2 wurde erfolgreich gesendet.');
+          }).catch((err) => {
+            logger.logSync('ERROR', `Ping 1.2 konnte nicht gesendet werden. Error ${JSON.stringify(err)}`);
+          });
+          setTimeout(() => {
+            interaction.editReply({
+              content: `Informationen zum Ping von ${interaction.user.username}: heute circa 5 Minuten später: PONG!\nCurrent Bot latency: ${client.ws.ping * 750}ms\nRoundtrip latency: ${sent.createdTimestamp - interaction.createdTimestamp * 10}ms`
+            }).then(() => {
+              logger.logSync('INFO', 'Pong 1.3 wurde erfolgreich gesendet.');
+            }).catch((err) => {
+              logger.logSync('ERROR', `Ping 1.3 konnte nicht gesendet werden. Error ${JSON.stringify(err)}`);
+            });
+          }, 100000 * timeout);
+        }, 500000 * timeout);
+      }, 100000 * timeout);
+    }, 50000 * timeout);
+  } else {
+    return
   }
 }
