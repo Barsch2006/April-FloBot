@@ -40,6 +40,7 @@ export default [
         .setRequired(true)
     ),
   new SlashCommandBuilder().setName('rename') // RM
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .setDescription('Ändert deinen Benutzernamen in einen random Namen auf dem Server')
     .addUserOption(
       opt => opt.setName('target')
