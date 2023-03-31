@@ -31,11 +31,14 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     .setTimestamp()
 
   try {
-    interaction.reply({ embeds: [Oembed], ephemeral: false, fetchReply: true }).then(async (id) => {
-      await sleep(5000);
-      await member?.timeout(zeit, `${member.user.username} hat versucht ${user.user.username} zu timeouten.`)
+    await interaction.reply({ embeds: [Oembed], ephemeral: false })
+    await sleep(5000);
+    await member?.timeout(zeit, `${member.user.username} hat versucht ${user.user.username} zu timeouten.`)
+    try {
       await (await member.createDM(true)).send({ embeds: [embed] });
-    })
+    } catch (e) {
+      logger.log("INFO", JSON.stringify(e))
+    }
     try {
       const channel = await interaction.guild?.channels.fetch(process.env.APRIL ?? '') as TextChannel
       await channel?.send(`@${interaction.user.username} hat den Command **timeout** ausgeführt.`)
