@@ -1,6 +1,7 @@
 import { Client, CommandInteraction, EmbedBuilder, GuildMember, Colors, ChannelType, GuildBasedChannel, NewsChannel } from "discord.js"
 import { AsyncDatabase } from '../../../sqlite/sqlite'
 import { ILogger } from '../../../logger/logger'
+import { join } from "path"
 
 export default async function (client: Client, interaction: CommandInteraction, logger: ILogger, db: AsyncDatabase): Promise<void> {
     try {
@@ -15,7 +16,7 @@ export default async function (client: Client, interaction: CommandInteraction, 
             })
             var iferr = false;
             try {
-                await client.user?.setAvatar(process.env.AVATAR ?? '')
+                await client.user?.setAvatar(join('.', 'src', 'action', 'rm', 'slashCommands', 'flobot.png'))
                 iferr = false;
             } catch (err: any) {
                 iferr = true

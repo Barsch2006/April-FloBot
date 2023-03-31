@@ -2,6 +2,7 @@ import { Client, CommandInteraction, EmbedBuilder, GuildMember, Colors, ChannelT
 import { AsyncDatabase } from '../../../sqlite/sqlite'
 import { ILogger } from '../../../logger/logger'
 import { config } from 'dotenv'
+import { join } from "path"
 config()
 
 export default async function (client: Client, interaction: CommandInteraction, logger: ILogger, db: AsyncDatabase): Promise<void> {
@@ -17,10 +18,11 @@ export default async function (client: Client, interaction: CommandInteraction, 
             })
             var iferr = false;
             try {
-                await client.user?.setAvatar(process.env.GLITCHY ?? '')
+                await client.user?.setAvatar(join('.', 'src', 'action', 'rm', 'slashCommands', 'glitchy.png'))
                 iferr = false;
             } catch (err: any) {
                 iferr = true
+                console.log(err)
             }
             if (iferr == true) {
                 await interaction.reply({content: "Channels erfolgreich umbennant und Avatar nicht geändert", ephemeral: true})
