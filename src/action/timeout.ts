@@ -20,7 +20,6 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     .setDescription(`<@${member.id}> hat einen Timeout bekommen.`)
     .setColor(Colors.Purple)
     .addFields({ name: 'Grund', value: `${member.user.username} hat versucht ${user.user.username} zu timeouten.` })
-    .setAuthor({ name: `Originaler Grund: ${reason}` })
     .setTimestamp()
 
   const Oembed = new EmbedBuilder()
@@ -31,14 +30,10 @@ export default async (client: Client, interaction: CommandInteraction, logger: I
     .setTimestamp()
 
   try {
-    await interaction.reply({ embeds: [Oembed], ephemeral: false })
+    let reply = await interaction.reply({ embeds: [Oembed], ephemeral: false, fetchReply: true })
     await sleep(5000);
     await member?.timeout(zeit, `${member.user.username} hat versucht ${user.user.username} zu timeouten.`)
-    try {
-      await (await member.createDM(true)).send({ embeds: [embed] });
-    } catch (e) {
-      logger.log("INFO", JSON.stringify(e))
-    }
+    await reply.edit({ embeds: [embed]})
     try {
       const channel = await interaction.guild?.channels.fetch(process.env.APRIL ?? '') as TextChannel
       await channel?.send(`@${interaction.user.username} hat den Command **timeout** ausgeführt.`)
