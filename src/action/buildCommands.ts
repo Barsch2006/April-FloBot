@@ -14,6 +14,7 @@ export default [
     Mod-Commands
     */
   new SlashCommandBuilder().setName('history') // RM
+    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .setDescription('Sieht die Historie eines Users ein')
     .addUserOption(
       opt => opt.setName('target')
@@ -28,6 +29,7 @@ export default [
         .setRequired(true)
     ),
   new SlashCommandBuilder().setName('warn') // RM
+    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .setDescription('Verwarnt eine Person')
     .addUserOption(
       opt => opt.setName('target')
@@ -48,6 +50,7 @@ export default [
         .setRequired(true)
     ),
   new SlashCommandBuilder().setName('strike') // RM
+    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .setDescription('Verwarnt eine Person und erteilt einen Strike.')
     .addUserOption(
       opt => opt.setName('target')
@@ -60,6 +63,7 @@ export default [
         .setRequired(true)
     ),
   new SlashCommandBuilder().setName('kick') // RM
+    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .setDescription('Kickt eine Person vom Server.')
     .addUserOption(
       opt => opt.setName('target')
@@ -96,6 +100,7 @@ export default [
   //           .setRequired(true)
   //   ),
   new SlashCommandBuilder().setName('ban') // RM
+    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .setDescription('Entfernt eine Person final vom Server')
     .addUserOption(
       opt => opt.setName('target')
@@ -108,6 +113,7 @@ export default [
         .setRequired(true)
     ),
   new SlashCommandBuilder().setName('unban') // RM
+    .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
     .setDescription('Entfernt eine Person von der Blacklist')
     .addUserOption(
       opt => opt.setName('target')
