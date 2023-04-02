@@ -1,6 +1,8 @@
 # First-April-Version of [FloBot](https://github.com/Mickhat/FloBot)
 
-# Development
+A version of a Discord-Moderation-Bot in Typescript build to prank the members of the Server
+
+## Development
 
 To setup your bot, you have to copy the `env.example` to `.env` and set your TOKENs and IDs:
 
@@ -15,6 +17,7 @@ APRIL= <Channel to Log the Actions of the users on April-Commands>
 ```
 
 You can also configure the logging behavior in `logging.json`.
+You schould also change the JSON in the `startApril.ts` and `stopApril.ts`
 
 ## npm commands
 
