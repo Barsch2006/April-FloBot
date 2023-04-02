@@ -1,4 +1,4 @@
-# First-April-Version of [FloBot](https://github.com/Mickhat/FloBot)
+# April-Fools-Version of [FloBot](https://github.com/Mickhat/FloBot)
 
 A version of a Discord-Moderation-Bot in Typescript build to prank the members of the Server
 
